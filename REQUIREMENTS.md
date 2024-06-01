@@ -14,7 +14,7 @@
 ## Technische Anforderungen
 
 - [x] Frontend mit Vue.js 3
-- [ ] Backend mit Python FastAPI
+- [x] Backend mit Python FastAPI
 
 ### Frontend
 
