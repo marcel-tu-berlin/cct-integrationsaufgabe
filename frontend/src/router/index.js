@@ -23,10 +23,16 @@ const router = createRouter({
       path: '/register',
       component: () => import('../views/RegisterPage.vue')
     },
+	{
+		path: '/persons',
+		component: () => import('../views/PersonsPage.vue')
+	},
+
+	// This route will match any path that hasn't matched any of the routes above
     {
       path: '/:catchAll(.*)',
       component: () => import('../views/NotFoundPage.vue')
-    }
+	},
   ]
 })
 

@@ -21,7 +21,7 @@
 - [ ] Eine Seite, um eine Person im System anzulegen. Diese Seite muss Eingabemöglichkeiten für alle Daten der Person haben (welche das sind, bleibt dir überlassen). Außerdem solltest du darauf achten, dass jede Person nur einmal angelegt werden kann.
 - [ ] Eine Seite zum Auswählen einer Person. Diese Seite sollte alle wählbaren Personen anzeigen und die Möglichkeit bieten, die Wahl nach dem Wahlsystem die Wahl durchzuführen. (Implementiere hier das Wahlsystem, das dir am geeignetsten erscheint). Es kann immer nur eine Wahl gleichzeitig stattfinden.
 - [ ] Eine Seite zur Anzeige der aktuellen Wahlergebnisse. Diese Seite soll die Personen mit dem jeweiligen aktuellen Wahlergebnis in % anzeigen.
-- [ ] Eine Login-Seite zum Einloggen mit Benutzername und Passwort. Nur eingeloggte Benutzer können wählen. Das Wahlergebnis muss für alle sichtbar sein.
+- [x] Eine Login-Seite zum Einloggen mit Benutzername und Passwort. Nur eingeloggte Benutzer können wählen. Das Wahlergebnis muss für alle sichtbar sein.
 
 ### Backend
 

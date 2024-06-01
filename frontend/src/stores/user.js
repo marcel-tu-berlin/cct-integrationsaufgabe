@@ -1,12 +1,34 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore('user', () => {
-  const user = ref(null)
+const baseURL = import.meta.env.VITE_API_URL
 
-  function login(username, password) {
-    console.log('Logging in', username, password)
+export const useUserStore = defineStore('user', () => {
+  const user = ref({
+	firstName: 'John',
+	lastName: 'Doe',
+  })
+
+  async function login(username, password) {
+	const response = await fetch(`${baseURL}/login`, {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json',
+	  },
+	  body: JSON.stringify({ username, password }),
+	})
+	
+	if (response.ok) {
+	  const data = await response.json()
+	  user.value = data
+	}
+
+	return response.ok
   }
 
-  return { user, login }
+  function logout() {
+	console.log('Logging out')
+  }
+
+  return { user, login, logout }
 })
