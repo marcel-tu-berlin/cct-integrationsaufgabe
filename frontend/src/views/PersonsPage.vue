@@ -7,14 +7,14 @@ import { useUserStore } from '@/stores/user'
 
 import { storeToRefs } from 'pinia'
 
-import { usePositionStore } from '@/stores/positions'
+import { usePositionsStore } from '@/stores/positions'
 
 const { persons } = storeToRefs(usePersonsStore())
 
 const { fetchPersons, createPerson, deletePerson } = usePersonsStore()
 
-const { positions } = storeToRefs(usePositionStore())
-const { fetchPositions } = usePositionStore()
+const { positions } = storeToRefs(usePositionsStore())
+const { fetchPositions } = usePositionsStore()
 
 const userStore = useUserStore()
 
@@ -29,7 +29,7 @@ const headers = ref([
   { title: 'Name', key: 'full_name' },
   { title: 'Alter', key: 'age' },
   { title: 'Geschlecht', key: 'sex' },
-  { title: 'Aufgestellt für', key: 'position_id' },
+  { title: 'Aufgestellt für', key: 'position.name' },
   { title: 'Aktionen', key: 'actions', sortable: false }
 ])
 

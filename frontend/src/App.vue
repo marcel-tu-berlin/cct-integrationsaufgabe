@@ -46,6 +46,7 @@ const appTitle = import.meta.env.VITE_APP_TITLE
           title="Personenverwaltung"
           to="/persons"
         />
+        <v-list-item prepend-icon="mdi-vote-outline" title="Abstimmungen" to="/positions" />
       </v-list>
     </v-navigation-drawer>
 

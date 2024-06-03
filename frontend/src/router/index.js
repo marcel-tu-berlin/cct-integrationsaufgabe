@@ -27,6 +27,10 @@ const router = createRouter({
 		path: '/persons',
 		component: () => import('../views/PersonsPage.vue')
 	},
+	{
+		path: '/positions',
+		component: () => import('../views/PositionsPage.vue')
+	},
 
 	// This route will match any path that hasn't matched any of the routes above
     {

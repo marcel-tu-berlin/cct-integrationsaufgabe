@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from ..dependencies import oauth2_scheme, get_session
 from sqlmodel import Session, select
-from ..domain import Person, Votes
+from ..domain import Person, PersonPublicWithVotes
 
 router = APIRouter(
 	prefix="/persons",
@@ -9,7 +9,7 @@ router = APIRouter(
 	dependencies=[Depends(oauth2_scheme)],
 )
 
-@router.get("/")
+@router.get("/", response_model=list[PersonPublicWithVotes])
 def get_persons(session: Session = Depends(get_session)):
 	persons = session.exec(select(Person)).all()
 	return persons

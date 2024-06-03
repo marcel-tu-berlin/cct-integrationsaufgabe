@@ -4,7 +4,7 @@ import { useUserStore } from './user'
 
 const baseURL = import.meta.env.VITE_API_URL
 
-export const usePositionStore = defineStore('positions', () => {
+export const usePositionsStore = defineStore('positions', () => {
   const positions = ref([])
 
   async function fetchPositions() {
