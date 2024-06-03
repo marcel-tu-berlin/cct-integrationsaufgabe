@@ -19,10 +19,12 @@ export const usePersonsStore = defineStore('persons', () => {
   }
 
   async function createPerson(person) {
+	console.log(person)
 	const rqBody = {
 		full_name: person.fullName,
 		age: person.age,
 		sex: person.sex,
+		position_id: person.position.id,
 	}
 
 	const response = await fetch(`${baseURL}/persons`, {

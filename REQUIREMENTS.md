@@ -4,8 +4,8 @@
 
 - [ ] Es soll aus mehreren zur Wahl stehenden Personen gewählt werden können.
 - [ ] Es soll eine Übersicht über das aktuelle Ergebnis geben
-- [ ] Es soll eine Person im System angelegt werden können. Hierbei soll zwischen nicht wählbar und wählbar unterschieden werden.
-- [ ] Der Benutzer soll sich vor der Wahl einloggen müssen.
+- [x] Es soll eine Person im System angelegt werden können. Hierbei soll zwischen nicht wählbar und wählbar unterschieden werden.
+- [x] Der Benutzer soll sich vor der Wahl einloggen müssen.
 
 ### Optional
 

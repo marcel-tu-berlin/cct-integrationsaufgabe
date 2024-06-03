@@ -7,9 +7,14 @@ import { useUserStore } from '@/stores/user'
 
 import { storeToRefs } from 'pinia'
 
+import { usePositionStore } from '@/stores/positions'
+
 const { persons } = storeToRefs(usePersonsStore())
 
 const { fetchPersons, createPerson, deletePerson } = usePersonsStore()
+
+const { positions } = storeToRefs(usePositionStore())
+const { fetchPositions } = usePositionStore()
 
 const userStore = useUserStore()
 
@@ -24,6 +29,7 @@ const headers = ref([
   { title: 'Name', key: 'full_name' },
   { title: 'Alter', key: 'age' },
   { title: 'Geschlecht', key: 'sex' },
+  { title: 'Aufgestellt für', key: 'position_id' },
   { title: 'Aktionen', key: 'actions', sortable: false }
 ])
 
@@ -33,7 +39,12 @@ const dialogDelete = ref(false)
 const newPerson = ref({
   fullName: '',
   age: 0,
-  sex: ''
+  sex: '',
+  position: {
+    id: null,
+    name: '',
+    description: ''
+  }
 })
 
 const personToDelete = ref(null)
@@ -58,7 +69,12 @@ function close() {
   newPerson.value = {
     fullName: '',
     age: 0,
-    sex: ''
+    sex: '',
+    position: {
+      id: null,
+      name: '',
+      description: ''
+    }
   }
 }
 
@@ -85,6 +101,8 @@ onMounted(() => {
   fetchPersons().then(() => {
     loading.value = false
   })
+
+  fetchPositions()
 })
 </script>
 
@@ -151,6 +169,16 @@ onMounted(() => {
                             label="Geschlecht"
                             :items="['M', 'F', 'D']"
                             v-model="newPerson.sex"
+                          ></v-select>
+
+                          <v-select
+                            label="Aufgestellt für"
+                            :items="positions"
+                            v-model="newPerson.position"
+                            :hint="`${newPerson.position.description} - ${newPerson.position.name}`"
+                            item-title="name"
+                            item-value="id"
+                            return-object
                           ></v-select>
                         </v-form>
                       </v-card-text>
