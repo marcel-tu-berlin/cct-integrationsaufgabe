@@ -9,7 +9,7 @@
 
 ### Optional
 
-- [ ] Es sollen verschiedene Wahlsysteme unterstützt werden (z.B. mehrstufige Wahlsysteme, Präferenzwahl, etc.)
+- [ ] ~~Es sollen verschiedene Wahlsysteme unterstützt werden (z.B. mehrstufige Wahlsysteme, Präferenzwahl, etc.)~~
 
 ## Technische Anforderungen
 
@@ -25,6 +25,6 @@
 
 ### Backend
 
-- [ ] Ein Endpoint zum Einloggen. (Du musst nichts so kompliziertes wie Oauth2 implementieren).
-- [ ] Ein Endpoint für die Personenverwaltung
-- [ ] Ein Endpoint für die Wahlen
+- [x] Ein Endpoint zum Einloggen. (Du musst nichts so kompliziertes wie Oauth2 implementieren).
+- [x] Ein Endpoint für die Personenverwaltung
+- [x] Ein Endpoint für die Wahlen

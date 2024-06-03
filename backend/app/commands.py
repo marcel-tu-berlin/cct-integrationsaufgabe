@@ -22,3 +22,6 @@ class UserCommand(BaseModel):
 	email: str
 	full_name: str
 	disabled: bool
+
+class VoteCommand(BaseModel):
+	person_id: int

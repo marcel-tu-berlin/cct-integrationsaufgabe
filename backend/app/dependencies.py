@@ -37,7 +37,7 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def get_user(username: str):
+def get_user(username: str) -> User:
 	with Session(engine) as session:
 		user = session.exec(select(User).where(User.username == username)).first()
 		return user
@@ -61,7 +61,7 @@ def authenticate_user(username: str, password: str):
 			return False
 		return user
 
-def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from .data import create_data
 from .dependencies import create_db_and_tables, engine, get_password_hash, remove_db
-from .routers import persons, users, auth
+from .routers import persons, users, auth, votes
 
 app = FastAPI(
 	root_path="/api",
@@ -11,6 +11,7 @@ app = FastAPI(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(persons.router)
+app.include_router(votes.router)
 
 origins = [
 	"http://localhost:5173",
