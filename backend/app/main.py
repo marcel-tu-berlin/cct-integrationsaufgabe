@@ -8,11 +8,6 @@ app = FastAPI(
 	root_path="/api",
 )
 
-app.include_router(auth.router)
-app.include_router(users.router)
-app.include_router(persons.router)
-app.include_router(votes.router)
-
 origins = [
 	"http://localhost:5173",
 ]
@@ -25,6 +20,10 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
+app.include_router(auth.router)
+app.include_router(users.router)
+app.include_router(persons.router)
+app.include_router(votes.router)
     
 @app.on_event("startup")
 def on_startup():

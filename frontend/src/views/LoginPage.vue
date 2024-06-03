@@ -1,14 +1,30 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from '../stores/user'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const userStore = useUserStore()
 
 const username = ref('')
 const password = ref('')
 
+const showAlert = ref(false)
+const showPassword = ref(false)
+
 const login = () => {
-  userStore.login(username.value, password.value)
+  try {
+    userStore.login(username.value, password.value)
+    router.push('/')
+  } catch (error) {
+    reset()
+    showAlert.value = true
+
+    setTimeout(() => {
+      showAlert.value = false
+    }, 3000)
+  }
 }
 
 const form = ref(null)
@@ -19,13 +35,10 @@ const reset = () => {
 
 const usernameRules = [
   (v) => !!v || 'Benutzername ist erforderlich',
-  (v) => (v && v.length >= 3) || 'Benutzernamen müssen mindestens 3 Zeichen lang sein'
+  (v) => (v && v.length <= 100) || 'Benutzername darf nicht länger als 100 Zeichen sein'
 ]
 
-const passwordRules = [
-  (v) => !!v || 'Passwort ist erforderlich',
-  (v) => (v && v.length >= 8) || 'Passwort muss mindestens 8 Zeichen lang sein'
-]
+const passwordRules = [(v) => !!v || 'Passwort ist erforderlich']
 </script>
 
 <template>
@@ -33,6 +46,9 @@ const passwordRules = [
     <v-row>
       <v-col>
         <v-sheet rounded elevation="2" class="pa-4">
+          <v-alert v-model="showAlert" type="error" dismissible>
+            Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldeinformationen.
+          </v-alert>
           <h1>Login</h1>
           <p class="mb-3">Bitte melden Sie sich an, um das Wahlsystem zu nutzen.</p>
           <v-form @submit.prevent="login" ref="form">
@@ -43,8 +59,10 @@ const passwordRules = [
               :rules="usernameRules"
             ></v-text-field>
             <v-text-field
+              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="showPassword = !showPassword"
               label="Passwort"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               v-model="password"
               class="mb-1"
               :rules="passwordRules"

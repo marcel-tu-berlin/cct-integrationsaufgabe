@@ -32,6 +32,8 @@ def login_for_access_token(
 
 @router.post("/register")
 def register(user: RegisterCommand, session: Session = Depends(get_session)):
+		password = user.password        
+		
 		user = User(
 			username=user.username,
 			email=user.email,
@@ -41,4 +43,11 @@ def register(user: RegisterCommand, session: Session = Depends(get_session)):
 		session.add(user)
 		session.commit()
 		session.refresh(user)
-		return user
+                
+		user = authenticate_user(user.username, password)
+		access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+		access_token = create_access_token(
+			data={"sub": user.username}, expires_delta=access_token_expires
+		)
+		return Token(access_token=access_token, token_type="bearer")
+        

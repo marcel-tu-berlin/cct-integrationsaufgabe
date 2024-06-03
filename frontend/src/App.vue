@@ -21,7 +21,8 @@ const appTitle = import.meta.env.VITE_APP_TITLE
       <v-btn variant="text" to="/about">About</v-btn>
       <v-btn variant="text" to="/contact">Kontakt</v-btn>
 
-      <v-btn variant="text" to="/login" color="primary">Login</v-btn>
+      <v-btn variant="text" to="/login" color="primary" v-if="!userStore.user">Login</v-btn>
+      <v-btn variant="text" @click="userStore.logout" color="primary" v-else>Logout</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer expand-on-hover rail>
@@ -29,12 +30,10 @@ const appTitle = import.meta.env.VITE_APP_TITLE
         <v-list>
           <v-list-item
             prepend-icon="mdi-account-circle-outline"
-            :title="`${userStore.user?.firstName} ${userStore.user?.lastName}`"
+            :title="`${userStore.user?.full_name}`"
           >
             <v-list-item-subtitle>
-              <v-btn @click="userStore.logout" color="primary" variant="text" size="x-small"
-                >Logout</v-btn
-              >
+              {{ userStore.user?.email }}
             </v-list-item-subtitle>
           </v-list-item>
         </v-list>

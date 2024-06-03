@@ -6,6 +6,17 @@ const baseURL = import.meta.env.VITE_API_URL
 export const useUserStore = defineStore('user', () => {
   const user = ref(null)
 
+  async function fetchUser() {
+	const response = await fetch(`${baseURL}/users/me`, {
+	  headers: { Authorization: `Bearer ${user.value.token}` },
+	})
+	const data = await response.json()
+	if (!response.ok) {
+	  throw new Error(data.detail)
+	}
+	user.value = { ...user.value, ...data }
+  }
+
   async function login(username, password) {
 	const response = await fetch(`${baseURL}/auth/token`, {
 	  method: 'POST',
@@ -18,13 +29,27 @@ export const useUserStore = defineStore('user', () => {
 	}
 	user.value = { username, token: data.access_token }
 
-	console.log(user.value)
-	
+	await fetchUser()
   }
 
-  function logout() {
-	console.log('Logging out')
+  async function logout() {
+	user.value = null
   }
 
-  return { user, login, logout }
+  async function register(username, password, email, full_name) {
+	const response = await fetch(`${baseURL}/auth/register`, {
+	  method: 'POST',
+	  headers: { 'Content-Type': 'application/json' },
+	  body: JSON.stringify({ username, password, email, full_name }),
+	})
+	const data = await response.json()
+	if (!response.ok) {
+	  throw new Error(data.detail)
+	}
+	user.value = { username, token: data.access_token }
+
+	await fetchUser()
+}
+
+  return { user, login, fetchUser, logout, register }
 }, { persist: true })

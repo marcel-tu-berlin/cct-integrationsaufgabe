@@ -20,7 +20,8 @@ def get_votes(session: Session = Depends(get_session)):
 def create_vote(vote: VoteCommand, session: Session = Depends(get_session), user = Depends(get_current_user)):
 	new_vote = Votes(
 		user_id=user.id,
-		person_id=vote.person_id
+		person_id=vote.person_id,
+		position_id=vote.position_id
 	)
 
 	session.add(new_vote)
