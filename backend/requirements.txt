@@ -1,1 +1,4 @@
 fastapi
+sqlmodel
+pyjwt
+passlib[bcrypt]

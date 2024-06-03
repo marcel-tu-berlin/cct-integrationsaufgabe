@@ -9,4 +9,4 @@ export const usePersonsStore = defineStore('persons', () => {
   }
 
   return { persons, fetchPersons }
-})
+}, { persist: true })

@@ -4,26 +4,22 @@ import { defineStore } from 'pinia'
 const baseURL = import.meta.env.VITE_API_URL
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref({
-	firstName: 'John',
-	lastName: 'Doe',
-  })
+  const user = ref(null)
 
   async function login(username, password) {
-	const response = await fetch(`${baseURL}/login`, {
+	const response = await fetch(`${baseURL}/auth/token`, {
 	  method: 'POST',
-	  headers: {
-		'Content-Type': 'application/json',
-	  },
-	  body: JSON.stringify({ username, password }),
+	  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+	  body: new URLSearchParams({ username, password }),
 	})
-	
-	if (response.ok) {
-	  const data = await response.json()
-	  user.value = data
+	const data = await response.json()
+	if (!response.ok) {
+	  throw new Error(data.detail)
 	}
+	user.value = { username, token: data.access_token }
 
-	return response.ok
+	console.log(user.value)
+	
   }
 
   function logout() {
@@ -31,4 +27,4 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return { user, login, logout }
-})
+}, { persist: true })

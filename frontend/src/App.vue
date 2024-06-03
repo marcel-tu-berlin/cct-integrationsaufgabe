@@ -25,21 +25,22 @@ const appTitle = import.meta.env.VITE_APP_TITLE
     </v-app-bar>
 
     <v-navigation-drawer expand-on-hover rail>
-      <v-list>
-        <v-list-item
-          prepend-icon="mdi-account-circle-outline"
-          :title="`${userStore.user?.firstName} ${userStore.user?.lastName}`"
-        >
-          <v-list-item-subtitle>
-            <v-btn @click="userStore.logout" color="primary" variant="text" size="x-small"
-              >Logout</v-btn
-            >
-          </v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
+      <template v-if="userStore.user">
+        <v-list>
+          <v-list-item
+            prepend-icon="mdi-account-circle-outline"
+            :title="`${userStore.user?.firstName} ${userStore.user?.lastName}`"
+          >
+            <v-list-item-subtitle>
+              <v-btn @click="userStore.logout" color="primary" variant="text" size="x-small"
+                >Logout</v-btn
+              >
+            </v-list-item-subtitle>
+          </v-list-item>
+        </v-list>
 
-      <v-divider></v-divider>
-
+        <v-divider></v-divider>
+      </template>
       <v-list>
         <v-list-item
           prepend-icon="mdi-account-group-outline"
