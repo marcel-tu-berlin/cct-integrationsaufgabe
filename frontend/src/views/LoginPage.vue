@@ -13,9 +13,9 @@ const password = ref('')
 const showAlert = ref(false)
 const showPassword = ref(false)
 
-const login = () => {
+const login = async () => {
   try {
-    userStore.login(username.value, password.value)
+    await userStore.login(username.value, password.value)
     router.push('/')
   } catch (error) {
     reset()
@@ -46,7 +46,14 @@ const passwordRules = [(v) => !!v || 'Passwort ist erforderlich']
     <v-row>
       <v-col>
         <v-sheet rounded elevation="2" class="pa-4">
-          <v-alert v-model="showAlert" type="error" dismissible>
+          <v-alert
+            v-model="showAlert"
+            type="error"
+            closable
+            icon="mdi-alert"
+            border="start"
+            elevation="2"
+          >
             Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldeinformationen.
           </v-alert>
           <h1>Login</h1>

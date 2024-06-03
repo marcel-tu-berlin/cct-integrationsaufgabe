@@ -16,9 +16,9 @@ const fullName = ref('')
 const showAlert = ref(false)
 const showPassword = ref(false)
 
-const register = () => {
+const register = async () => {
   try {
-    userStore.register(username.value, password.value, email.value, fullName.value)
+    await userStore.register(username.value, password.value, email.value, fullName.value)
     router.push('/')
   } catch (error) {
     reset()
@@ -65,7 +65,14 @@ const fullNameRules = [
     <v-row>
       <v-col>
         <v-sheet rounded elevation="2" class="pa-4">
-          <v-alert v-model="showAlert" type="error" dismissible>
+          <v-alert
+            v-model="showAlert"
+            type="error"
+            closable
+            icon="mdi-alert"
+            border="start"
+            elevation="2"
+          >
             Registrierung fehlgeschlagen. Bitte überprüfen Sie Ihre Registrierungsinformationen oder
             wenden Sie sich an den Administrator.
           </v-alert>
